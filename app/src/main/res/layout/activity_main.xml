@@ -1,0 +1,124 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:baselineAligned="true">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_gravity="center_horizontal">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:baselineAligned="true"
+            android:gravity="center_horizontal"
+            android:layout_alignParentEnd="true">
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/sbVolume"
+                android:layout_below="@+id/textView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15dp" />
+
+            <TimePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/timePicker_start"
+                android:layout_below="@+id/sbVolume"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20dp" />
+
+            <TimePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/timePicker_end" >
+
+            </TimePicker>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:gravity="center_horizontal">
+
+                <ToggleButton
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:textOff="Mo"
+                    android:textOn="Mo"
+                    android:id="@+id/toggleButton" />
+
+                <ToggleButton
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:textOff="Tu"
+                    android:textOn="Tu"
+                    android:id="@+id/toggleButton2"
+                    android:layout_weight="0.02" />
+
+                <ToggleButton
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:textOff="We"
+                    android:textOn="We"
+                    android:id="@+id/toggleButton7" />
+
+                <ToggleButton
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:textOff="Th"
+                    android:textOn="Th"
+                    android:id="@+id/toggleButton3" />
+
+                <ToggleButton
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:textOff="Fr"
+                    android:textOn="Fr"
+                    android:id="@+id/toggleButton4" />
+
+                <ToggleButton
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:textOff="Sa"
+                    android:textOn="Sa"
+                    android:id="@+id/toggleButton5" />
+
+                <ToggleButton
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:textOff="Su"
+                    android:textOn="Su"
+                    android:id="@+id/toggleButton6"
+                    android:layout_weight="0.02" />
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set Time"
+                android:id="@+id/button"
+                android:onClick="setTime"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="48dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
