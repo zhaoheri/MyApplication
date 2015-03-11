@@ -36,22 +36,22 @@ public class MyDB {
         dbHelper.close();
     }
 
-    public void insert(Rules rule) {
+    public void insert(Rule rule) {
         ContentValues values = new ContentValues();
-        values.put(MyDBHelper.COLUMN_START_TIME, rule.start_time);
-        values.put(MyDBHelper.COLUMN_END_TIME, rule.end_time);
-        values.put(MyDBHelper.COLUMN_VTYPE, rule.vtype);
+        values.put(MyDBHelper.COLUMN_START_TIME, rule.getStart_time());
+        values.put(MyDBHelper.COLUMN_END_TIME, rule.getEnd_time());
+        values.put(MyDBHelper.COLUMN_VTYPE, rule.getVolume());
         long insertId = database.insert(MyDBHelper.TABLE_NAME, null, values);
     }
 
-    public List<Rules> select() {
-        List<Rules> rules = new ArrayList<Rules>();
+    public List<Rule> select() {
+        List<Rule> rules = new ArrayList<Rule>();
 
         Cursor cursor = database.query(MyDBHelper.TABLE_NAME, allColumns, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Rules rule = cursorToRule(cursor);
+            Rule rule = cursorToRule(cursor);
             rules.add(rule);
             cursor.moveToNext();
         }
@@ -60,8 +60,25 @@ public class MyDB {
         return rules;
     }
 
-    private Rules cursorToRule(Cursor cursor) {
-        Rules rule = new Rules(cursor.getString(1), cursor.getString(2), cursor.getString(3));
+    public void updateById(long id, String startTime, String endTime, String volume) {
+        ContentValues values = new ContentValues();
+        values.put(MyDBHelper.COLUMN_ID, id);
+        values.put(MyDBHelper.COLUMN_START_TIME, startTime);
+        values.put(MyDBHelper.COLUMN_END_TIME, endTime);
+        values.put(MyDBHelper.COLUMN_VTYPE, volume);
+
+        String selection = MyDBHelper.COLUMN_ID + " = " + id;
+        database.update(MyDBHelper.TABLE_NAME, values, selection, null);
+    }
+
+    public void deleteById(long id) {
+        String selection = MyDBHelper.COLUMN_ID + " = " + id;
+        database.delete(MyDBHelper.TABLE_NAME, selection, null);
+    }
+
+    private Rule cursorToRule(Cursor cursor) {
+        Rule rule = new Rule(cursor.getString(1), cursor.getString(2), cursor.getString(3));
+        rule.setId(Long.parseLong(cursor.getString(0)));
         return rule;
     }
 }

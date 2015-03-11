@@ -1,6 +1,11 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Volumaster</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_display_rule">Rules</string>
+    <string name="title_activity_edit_rule">Edit Rule</string>
+    <string name="action_add_rule">Add Rule</string>
+    <string name="action_show_rules">Show Rules</string>
+    <string name="title_activity_setting">Setting</string>
 </resources>

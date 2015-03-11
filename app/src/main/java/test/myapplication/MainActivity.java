@@ -5,14 +5,12 @@ package test.myapplication;
  */
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,27 +18,20 @@ import android.widget.SeekBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.TimeZone;
-
 
 public class MainActivity extends Activity {
+
+    public final static String START_TIME = "test.myapplication.START_TIME";
+    public final static String END_TIME = "test.myapplication.END_TIME";
+    public final static String VOLUME = "test.myapplication.VOLUME";
 
     SeekBar sb;
     MediaPlayer mp;
     AudioManager am;
     TimePicker tp_start;
     TimePicker tp_end;
-    MyDBHelper myDBHelper;
     Integer vol;
 
-    // database variable
-    MyDB myDB;
 
     // alarm variable
     PendingIntent pendingIntent;
@@ -79,13 +70,6 @@ public class MainActivity extends Activity {
         tp_start = (TimePicker) findViewById(R.id.timePicker_start);
         tp_end = (TimePicker) findViewById(R.id.timePicker_end);
 
-        // database set up
-        myDB = new MyDB(this);
-        try {
-            myDB.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public void setTime(View V)
@@ -114,17 +98,11 @@ public class MainActivity extends Activity {
         start_time = tp_start.getCurrentHour() + ":" + tp_start.getCurrentMinute();
         end_time = tp_end.getCurrentHour() + ":" + tp_end.getCurrentMinute();
         type = vol.toString();
-        Rules rule = new Rules(start_time, end_time, type);
-        myDB.insert(rule);
-        Log.d("DB", "insert: " + start_time + ", " + end_time + ", " + type);
-        List<Rules> rulesList = myDB.select();
-        Log.d("DB", "database list: ");
-        for (Rules r : rulesList)
-            Log.d("DB", r.start_time + ", " + r.end_time + ", " + r.vtype);
 
-        // register time into alarm
+
+ /*       // register time into alarm
         Intent intentAlarm = new Intent(this, AlarmReceiver.class);
-        intentAlarm.putExtra("vtype", 0);
+        intentAlarm.putExtra("volume", 0);
         pendingIntent = PendingIntent.getBroadcast(this, 0, intentAlarm, 0);
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         // calculate first alarm time in millis
@@ -136,25 +114,25 @@ public class MainActivity extends Activity {
 
         int interval = 8000;
         manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
-        Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();*/
+
+        Intent itemDisplayingIntent = new Intent(this, DisplayRuleActivity.class);
+        itemDisplayingIntent.putExtra(START_TIME, start_time);
+        itemDisplayingIntent.putExtra(END_TIME, end_time);
+        itemDisplayingIntent.putExtra(VOLUME, type);
+
+        startActivity(itemDisplayingIntent);
 
     }
-
-
 
     @Override
     protected void onResume() {
-        try {
-            myDB.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         super.onResume();
+        mp.start();
     }
-
     @Override
     protected void onPause() {
-        myDB.close();
+        mp.stop();
         super.onPause();
     }
 
@@ -175,7 +153,12 @@ public class MainActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingActivity.class);
+            startActivity(intent);
             return true;
+        } else if (id == R.id.action_show_rules) {
+            Intent intent = new Intent(this, DisplayRuleActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

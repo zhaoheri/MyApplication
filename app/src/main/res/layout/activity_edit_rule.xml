@@ -24,14 +24,13 @@
             android:layout_alignParentEnd="true">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Volume"
                 android:id="@+id/Volume"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:gravity="center" />
+                android:layout_marginTop="10dp" />
 
             <SeekBar
                 android:layout_width="match_parent"
@@ -141,16 +140,31 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Set Time"
-                android:id="@+id/button"
-                android:onClick="setTime"
+                android:text="Save Change"
+                android:id="@+id/button_save_button"
+                android:onClick="saveChange"
+                android:background="#c0c0c0"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
-                android:background="#c0c0c0"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delete"
+                android:id="@+id/button_delete"
+                android:onClick="deleteRule"
+                android:textColor="#ffffff"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:background="#ff4040" />
 
         </LinearLayout>
     </ScrollView>

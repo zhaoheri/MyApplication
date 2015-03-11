@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="#fbfaf1"
+    tools:context="test.myapplication.SettingActivity">
+
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Wifi detection"
+        android:id="@+id/switch_wifi"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        android:layout_alignParentEnd="true"
+        android:checked="false" />
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GPS detection"
+        android:id="@+id/switch_gps"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp"
+        android:checked="false" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Import Google Calendar"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentStart="true"
+        android:background="#c0c0c0" />
+
+</LinearLayout>
