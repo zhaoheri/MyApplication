@@ -1,7 +1,12 @@
 package test.myapplication;
 
+import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.ListActivity;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -9,8 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +61,22 @@ public class DisplayRuleActivity extends ListActivity {
             Rule rule = new Rule(startTime, endTime, volume);
             Log.d("DB", "insert: " + startTime + ", " + endTime + ", " + volume);
             myDB.insert(rule);
+
+            // register time into alarm
+            Intent intentAlarm = new Intent(this, AlarmReceiver.class);
+            intentAlarm.putExtra("volume", 0);
+            PendingIntent pendingIntent;
+            pendingIntent = PendingIntent.getBroadcast(this, 0, intentAlarm, 0);
+            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            // calculate first alarm time in millis
+            long currTime = System.currentTimeMillis();
+            DateFormat[] formats = new DateFormat[] {
+                    new SimpleDateFormat("HH"),
+                    new SimpleDateFormat("mm")
+            };
+            int interval = 24 * 60 * 60 * 1000;
+            manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, currTime + 10 * 1000, interval, pendingIntent);
+            Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
         }
         Log.d("DB", "database list: ");
         rules = myDB.select();
